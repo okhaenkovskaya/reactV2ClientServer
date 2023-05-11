@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "src": "https://placekitten.com/640/360",
+    "alt": "lorem image01"
+  },
+  {
+    "id": 2,
+    "src": "https://placekitten.com/640/360",
+    "alt": "lorem image02"
+  },
+  {
+    "id": 3,
+    "src": "https://placekitten.com/640/360",
+    "alt": "lorem image03"
+  },
+  {
+    "id": 4,
+    "src": "https://placekitten.com/640/360",
+    "alt": "lorem image04"
+  },
+  {
+    "id": 5,
+    "src": "https://placekitten.com/640/360",
+    "alt": "lorem image05"
+  },
+  {
+    "id": 6,
+    "src": "https://placekitten.com/640/360",
+    "alt": "lorem image06"
+  },
+  {
+    "id": 7,
+    "src": "https://placekitten.com/640/360",
+    "alt": "lorem image07"
+  },
+  {
+    "id": 8,
+    "src": "https://placekitten.com/640/360",
+    "alt": "lorem image08s"
+  }
+]

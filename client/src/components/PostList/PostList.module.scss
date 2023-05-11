@@ -1,0 +1,27 @@
+.postList {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px 0;
+}
+
+.postItem {
+  width: 20%;
+  padding: 10px;
+}
+
+.postTitle {
+  margin: 0 0 15px;
+  
+  a {
+    color: inherit;
+    text-decoration: none;
+    
+    &:hover {
+      color: blue;
+    }
+  }
+}
+
+.postText {
+  margin: 0 0 15px;
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Hero title",
+  "button": {
+    "title": "About page",
+    "url": "/about"
+  },
+  "image": {
+    "src": "https://via.placeholder.com/640x360",
+    "alt": "lorem image"
+  }
+}
