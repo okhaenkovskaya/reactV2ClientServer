@@ -13,7 +13,12 @@ type PostProps = {
 
 const PostPage = () => {
   const params = useParams();
-  const [post, setPost] = useState<PostProps>({});
+  const [post, setPost] = useState<PostProps>({
+    id: 0,
+    title: "",
+    body: "",
+    userID: 0,
+  });
 
   const getPost = async () => {
     try {

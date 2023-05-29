@@ -19,8 +19,8 @@ const Footer = ({ theme }: footerProps) => {
     >
       <NavList classes={style.footerMenu}>
         <NavItem to="/about">About</NavItem>
-        <NavItem to="/">Posts</NavItem>
-        <NavItem to="/">Contact</NavItem>
+        <NavItem to="/blog">Posts</NavItem>
+        <NavItem to="/contact">Contact</NavItem>
       </NavList>
       <p className={style.copyright}>
         Copyright {year} Prokopenko. All Rights Reserved.

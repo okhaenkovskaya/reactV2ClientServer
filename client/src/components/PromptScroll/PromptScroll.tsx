@@ -6,7 +6,7 @@ const PromptScroll = () => {
   const [scroll, setScroll] = useState<boolean>(false);
 
   useEffect(() => {
-    function handkeScroll() {
+    function handleScroll() {
       if (window.scrollY > 100) {
         setScroll(true);
       } else {
@@ -14,14 +14,14 @@ const PromptScroll = () => {
       }
     }
 
-    window.addEventListener("scroll", handkeScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", handkeScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [scroll]);
 
-  return scroll && <div className={style.prompt}>You are scrolling</div>;
+  return scroll ? <div className={style.prompt}>You are scrolling</div> : null;
 };
 
 export default PromptScroll;
