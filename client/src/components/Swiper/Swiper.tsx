@@ -19,28 +19,26 @@ type Image = {
 
 const SwiperSection = ({ sliderData }: sliderDataProps) => {
   return (
-    <>
-      <Swiper
-        slidesPerView={5}
-        spaceBetween={30}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
-        pagination={{
-          clickable: true,
-        }}
-        navigation={true}
-        modules={[Autoplay, Pagination, Navigation]}
-        className="mySwiper"
-      >
-        {sliderData.map((item: Image) => (
-          <SwiperSlide key={item.id}>
-            <img className={style.swiperImage} src={item.src} alt={item.alt} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </>
+  <Swiper
+    slidesPerView={5}
+    spaceBetween={30}
+    autoplay={{
+      delay: 2500,
+      disableOnInteraction: false,
+    }}
+    pagination={{
+      clickable: true,
+    }}
+    navigation={true}
+    modules={[Autoplay, Pagination, Navigation]}
+    className="mySwiper"
+  >
+    {sliderData.map((item: Image) => (
+      <SwiperSlide key={item.id}>
+        <img className={style.swiperImage} src={item.src} alt={item.alt} />
+      </SwiperSlide>
+    ))}
+  </Swiper>
   );
 };
 
