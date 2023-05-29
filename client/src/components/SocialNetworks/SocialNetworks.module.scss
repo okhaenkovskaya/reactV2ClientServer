@@ -19,4 +19,22 @@
       opacity: 0.5;
     }
   }
+  
+  span {
+    position: absolute !important;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+    word-wrap: normal !important;
+  }
+}
+
+.title {
+  text-align: center;
+  margin: 0 0 15px;
+  text-transform: uppercase;
 }

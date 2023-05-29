@@ -1,27 +1,30 @@
 import { Link } from "react-router-dom";
 
-import { SvgFacebook, SvgGoogle, SvgTwitter } from "../Icon";
 import style from "./SocialNetworks.module.scss";
+import socialNetworkData from "../../data/socialNetworks.tsx";
+
+type ItemProps = {
+    id: number;
+    text: string;
+    svg: JSX.Element;
+    link: string;
+};
 
 const SocialNetworks = () => {
   return (
-    <ul className={style.socialNetworks}>
-      <li>
-        <Link to="#">
-          <SvgFacebook color={"#2f16c8"} />
-        </Link>
-      </li>
-      <li>
-        <Link to="#">
-          <SvgGoogle color={"#4cff2e"} />
-        </Link>
-      </li>
-      <li>
-        <Link to="#">
-          <SvgTwitter color={"#2ed3ff"} />
-        </Link>
-      </li>
-    </ul>
+      <>
+        <h2 className={style.title}>{socialNetworkData.title}</h2>
+        <ul className={style.socialNetworks}>
+            {socialNetworkData.items.map((item: ItemProps) =>(
+                <li key={item.id}>
+                    <Link to={item.link}>
+                        <span>{item.text}</span>
+                        {item.svg}
+                    </Link>
+                </li>
+            ))}
+        </ul>
+      </>
   );
 };
 
