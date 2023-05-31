@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import {useContext} from "react";
 import { AuthContent } from "../../context/auth";
 
 
@@ -7,6 +7,7 @@ import Button from "../Button/Button";
 import { NavList, NavItem } from "../Nav";
 
 import style from "./Header.module.scss";
+import {Link} from "react-router-dom";
 
 const navList = [
   {
@@ -35,8 +36,6 @@ const Header = ({ theme, setTheme }: headerProps) => {
 
   const context = useContext(AuthContent);
 
-  console.log(context, 'contextcontextcontextcontext')
-
   return (
     <header
       className={
@@ -56,9 +55,14 @@ const Header = ({ theme, setTheme }: headerProps) => {
 
 
         {context.user ? (
-            <NavItem key='login' to='/login'>
-              DDDDLogin
-            </NavItem>
+           <>
+             <NavItem key='profile' to='/account/profile'>
+               Profile
+             </NavItem>
+             <Link className={style.logOutButton} onClick={context.logout} key="logout" to='/'>
+              LogOut
+             </Link>
+           </>
         ) : (
             <>
               <NavItem key='login' to='/login'>
