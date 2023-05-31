@@ -1,8 +1,13 @@
+import {useContext} from "react";
+import { AuthContent } from "../../context/auth";
+
+
 import Logo from "./Logo";
 import Button from "../Button/Button";
 import { NavList, NavItem } from "../Nav";
 
 import style from "./Header.module.scss";
+import {Link} from "react-router-dom";
 
 const navList = [
   {
@@ -28,6 +33,9 @@ interface headerProps {
 }
 
 const Header = ({ theme, setTheme }: headerProps) => {
+
+  const context = useContext(AuthContent);
+
   return (
     <header
       className={
@@ -44,6 +52,28 @@ const Header = ({ theme, setTheme }: headerProps) => {
             {name}
           </NavItem>
         ))}
+
+
+        {context.user ? (
+           <>
+             <NavItem key='profile' to='/account/profile'>
+               Profile
+             </NavItem>
+             <Link className={style.logOutButton} onClick={context.logout} key="logout" to='/'>
+              LogOut
+             </Link>
+           </>
+        ) : (
+            <>
+              <NavItem key='login' to='/login'>
+                Login
+              </NavItem>
+              <NavItem key='register' to='/register'>
+                Register
+              </NavItem>
+            </>
+        )}
+
       </NavList>
 
       <div className={style.btnWrap}>

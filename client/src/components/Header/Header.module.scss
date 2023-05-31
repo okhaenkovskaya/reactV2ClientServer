@@ -38,3 +38,27 @@
   align-items: center;
 }
 
+
+.logOutButton {
+  display: inline-block;
+  vertical-align: top;
+  background: white;
+  border: 1px solid white;
+  color: black;
+  padding: 8px;
+  border-radius: 50px;
+  font-size: 14px;
+  line-height: 1;
+  min-width: 100px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin: 0 10px;
+  box-shadow: 0 0 10px 0 black;
+  
+  &:hover {
+    color: white;
+    background: black;
+    cursor: pointer;
+  }
+}
