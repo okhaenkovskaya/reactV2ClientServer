@@ -2,9 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import {AuthProvider} from "./context/auth";
 import "../src/assets/styles/index.css";
+import {AuthProvider} from "./context/auth";
 import PublicLayout from "./layout/PublicLayout";
+import PrivateLayout from "./layout/PrivateLayout";
+
 import HomePage from "./pages/Home";
 import ErrorPage from "./pages/ErrorPage";
 import AboutPage from "./pages/About";
@@ -13,11 +15,31 @@ import BlogPage from "./pages/Blog";
 import PostPage from "./pages/Post";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard"
+import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/account",
+    element: <PrivateLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/account/profile",
+        element: <Profile />,
+      },
+      {
+        path: "/account/dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "*",
+        element: <ErrorPage />,
+      },
+    ],
+  },
+  {
+    path: "",
     element: <PublicLayout />,
     errorElement: <ErrorPage />,
     children: [
@@ -48,10 +70,6 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
-      },
-      {
-        path: "/dashboard",
-        element: <Dashboard />,
       },
       {
         path: "*",
