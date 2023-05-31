@@ -374,3 +374,16 @@ body {
   display: block;
   width: 100%;
 }
+
+.page-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 50px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.page-holder {
+  width: calc(100% - 300px);
+}

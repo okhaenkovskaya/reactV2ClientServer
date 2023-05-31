@@ -1,9 +1,12 @@
-import { useState } from "react";
+import {useContext, useState, useEffect} from "react";
 import { Outlet } from "react-router-dom";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { ThemeContext } from "./Contexts.ts";
+import Sidebar from "../components/Sidebar";
+import {AuthContent} from "../context/auth.tsx";
+import { useNavigate } from "react-router-dom";
 
 interface PrivateLayoutProps {
   children?: React.ReactNode;
@@ -11,13 +14,30 @@ interface PrivateLayoutProps {
 
 function PrivateLayout({ children }: PrivateLayoutProps) {
   const [theme, setTheme] = useState<string>("dark");
+  const context = useContext(AuthContent);
+  const navigate = useNavigate();
+
+
+    useEffect(() => {
+        if(context.user == null) {
+            navigate("/")
+            return;
+        }
+    }, []);
 
   return (
     <ThemeContext.Provider value={theme}>
       <div className="page-wrapper">
         <Header setTheme={setTheme} theme={theme} />
 
-        {children ?? <Outlet />}
+        <div className="page-container">
+            <Sidebar />
+
+            <div className="page-holder">
+                {children ?? <Outlet />}
+            </div>
+        </div>
+
 
         <Footer theme={theme} />
       </div>

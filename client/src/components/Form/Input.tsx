@@ -3,11 +3,11 @@ import style from "./Form.module.scss";
 type Props = {
   type?: string;
   name: string;
-  pattern?: string;
+  pattern?: string | null;
   placeholder?: string;
   value?: string;
   isRequired?: boolean;
-  changeFunction: () => void;
+  changeFunction: any;
 } & typeof defaultProps;
 
 const defaultProps = {
@@ -15,7 +15,7 @@ const defaultProps = {
   placeholder: "",
   value: "",
   isRequired: false,
-  pattern: "",
+  pattern: null,
 };
 
 const Input = ({

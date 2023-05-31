@@ -4,7 +4,7 @@ type Props = {
   children: React.ReactNode | string;
   innerRef?: any | null;
   isDisabled?: boolean;
-  clickFunction?: any | undefined;
+  clickFunction?: () => void | undefined;
   type?: any;
 } & typeof defaultProps;
 
