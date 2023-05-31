@@ -7,7 +7,6 @@ const initialState = {
 
 if(localStorage.getItem("jwtDecode")) {
     const decodeToken = jwtDecode(localStorage.getItem("jwtDecode"));
-    console.log(decodeToken, 'decodeToken')
 
     if(decodeToken.exp *1000 < Date.now()) {
         localStorage.removeItem("jwtDecode")
@@ -46,7 +45,7 @@ function AuthProvider(props) {
         localStorage.setItem("jwtDecode", userData.token);
         dispatch({
             type: "LOGIN",
-            payload: userData
+            payload: userData.result
         })
     }
 

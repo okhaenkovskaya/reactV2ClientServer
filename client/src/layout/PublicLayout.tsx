@@ -17,6 +17,7 @@ function PublicLayout({ children }: PublicLayoutProps) {
     <ThemeContext.Provider value={theme}>
       <div className="page-wrapper">
         <Header setTheme={setTheme} theme={theme} />
+
         <PromptScroll />
         {children ?? <Outlet />}
 
