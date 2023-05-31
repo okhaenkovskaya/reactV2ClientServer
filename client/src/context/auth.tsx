@@ -38,10 +38,10 @@ function authReducer(state, action) {
     }
 }
 
-function AuthProvider(props) {
+function AuthProvider(props: JSX.Element) {
     const [state, dispatch] = useReducer(authReducer, initialState);
 
-    function login(userData) {
+    function login(userData: any) {
         localStorage.setItem("jwtDecode", userData.token);
         dispatch({
             type: "LOGIN",
