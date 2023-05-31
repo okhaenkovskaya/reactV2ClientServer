@@ -38,7 +38,7 @@ const Login = () => {
             if(result) {
                 if ("result" in result) {
                     context.login(result)
-                    navigate("/dashboard")
+                    navigate("/account/profile")
                 } else {
                     setIsError(result.message)
                 }
