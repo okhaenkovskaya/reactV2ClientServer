@@ -43,7 +43,7 @@ const Dashboard = () => {
         <div>
             <h1 className={style.title}>List of Posts</h1>
             {tasks.length > 0 && tasks.map((item: Post) => (
-                <div key={item._id}>
+                <div className={style.post} key={item._id}>
                     <h2><Link to={item._id.toString()}>{item.title}</Link></h2>
                     {item.body}
                 </div>

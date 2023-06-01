@@ -18,12 +18,8 @@ type Post = {
     comments: []
 };
 
-type PostParams = {
-    id: string;
-};
-
 const DashboardPost = () => {
-    const { id } = useParams<PostParams>();
+    const { id } = useParams<string>();
     const [task, setTask] = useState<Post>({});
 
     const getTask = async () => {
@@ -44,10 +40,20 @@ const DashboardPost = () => {
         getTask();
     }, []);
 
+
+    console.log(task, 'task')
+
     return (
         <div>
             <h1 className={style.title}>{task.title}</h1>
+            <h2 className={style.status}>{task.status}</h2>
+            {task.tag && (
+                <ul className={style.tags}>
+                    {task.tag.map(tag => <li key={tag}>{tag}</li>)}
+                </ul>
+            )}
             {task.body}
+            <h3 className={style.likes}>Likes: {task.likes}</h3>
         </div>
     );
 };
