@@ -1,22 +1,38 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-import {BASE_URL_TASK} from "../../data/constans.ts"
+import {BASE_URL_POSTS} from "../../data/constans.ts"
 import style from "./Dashboard.module.scss"
 
-type PropsTask = {
+type Post = {
     _id: any;
-    task: string;
-    completed: boolean;
-    pinned: boolean;
+    title: string;
+    body: string;
+    status: string;
+    tag: [];
+    categories: [];
+    thumbnail: string;
+    likes: number;
+    views: number;
     createdAt: any;
+    comments: []
 };
 const Dashboard = () => {
-    const [tasks, setTasks] = useState<PropsTask[]>([]);
+    const [tasks, setTasks] = useState<Post[]>([]);
 
-    const getTasks = () => {
-        fetch(`${BASE_URL_TASK}`)
-            .then((res) => res.json())
-            .then((data) => setTasks(data));
+    const getTasks = async () => {
+        try {
+            const result = await (
+                await fetch(`${BASE_URL_POSTS}`)
+            ).json();
+
+            if(result) {
+                setTasks(result.data)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
     };
 
     useEffect(() => {
@@ -25,10 +41,11 @@ const Dashboard = () => {
 
     return (
         <div>
-            <h1 className={style.title}>List of tasks</h1>
-            {tasks.length > 0 && tasks.map((item: PropsTask) => (
+            <h1 className={style.title}>List of Posts</h1>
+            {tasks.length > 0 && tasks.map((item: Post) => (
                 <div key={item._id}>
-                    <h2>{item.task}</h2>
+                    <h2><Link to={item._id.toString()}>{item.title}</Link></h2>
+                    {item.body}
                 </div>
             ))}
         </div>
