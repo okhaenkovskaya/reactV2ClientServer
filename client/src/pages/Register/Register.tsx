@@ -1,7 +1,8 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 import {FormButton, Input} from "../../components/Form";
+import {AuthContent} from "../../context/auth";
 import style from "./Register.module.scss"
 
 interface IUserData {
@@ -14,6 +15,7 @@ interface IUserData {
 
 const Register = () => {
     const navigate = useNavigate();
+    const context = useContext(AuthContent);
     const [isError, setIsError] = useState<null | string >(null);
     const [userData, setUserData] = useState<IUserData>({
         email: "",
@@ -45,7 +47,8 @@ const Register = () => {
             ).json();
 
             if(result) {
-                "result" in result ? navigate("/dashboard") : setIsError(result.message);
+                context.login(result);
+                "result" in result ? navigate("/account/profile") : setIsError(result.message);
             }
         } catch (error) {
             console.log(error);

@@ -1,4 +1,4 @@
-import {useContext, useEffect} from "react";
+import {useContext} from "react";
 import {AuthContent} from "../../context/auth.tsx";
 
 
@@ -14,17 +14,15 @@ type PropsUser = {
 };
 
 const Profile = () => {
-    const context = useContext(AuthContent);
-    console.log(context, '1111')
+    const { user }: Props = useContext(AuthContent);
 
-
-    if (!context.user) {
+    if (!user) {
         return <>Please Login...</>;
     }
 
     return (
         <div>
-            <span>{context.user.email}</span>
+            <span>{user.email}</span>
         </div>
     );
 };
