@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { ThemeContext } from "./Contexts.ts";
+import { ThemeContext } from "../context/Contexts.ts";
 import Sidebar from "../components/Sidebar";
 import {AuthContent} from "../context/auth.tsx";
 import { useNavigate } from "react-router-dom";

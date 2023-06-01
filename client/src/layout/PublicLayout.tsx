@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
-import { ThemeContext } from "./Contexts.ts";
+import { ThemeContext } from "../context/Contexts.ts";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PromptScroll from "../components/PromptScroll";
