@@ -4,23 +4,21 @@ import { useParams } from "react-router-dom";
 import {BASE_URL_POSTS} from "../../data/constans.ts"
 import style from "./DashboardPost.module.scss"
 
-type Post = {
-    _id: any;
-    title: string;
-    body: string;
-    status: string;
-    tag: [];
-    categories: [];
-    thumbnail: string;
-    likes: number;
-    views: number;
-    createdAt: any;
-    comments: []
-};
-
 const DashboardPost = () => {
     const { id } = useParams<string>();
-    const [task, setTask] = useState<Post>({});
+    const [task, setTask] = useState<dashboardPostContent.Post>({
+        _id: "",
+        title: "",
+        body: "",
+        status: "",
+        tag: [],
+        categories: [],
+        thumbnail: "",
+        likes: 0,
+        views: 0,
+        createdAt: "",
+        comments: [],
+    });
 
     const getTask = async () => {
         try {
@@ -40,8 +38,6 @@ const DashboardPost = () => {
         getTask();
     }, []);
 
-
-    console.log(task, 'task')
 
     return (
         <div>
