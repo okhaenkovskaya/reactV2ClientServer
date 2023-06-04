@@ -1,53 +1,85 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 import {BASE_URL_POSTS} from "../../data/constans.ts"
 import style from "./Dashboard.module.scss"
+import DashboardPost from "../../components/DashboardPosts/DashboardPost";
+import DashboardNewPostForm from "../../components/DashboardPosts/DashboardNewPostForm/DashboardNewPostForm.tsx";
 
-type Post = {
-    _id: any;
-    title: string;
-    body: string;
-    status: string;
-    tag: [];
-    categories: [];
-    thumbnail: string;
-    likes: number;
-    views: number;
-    createdAt: any;
-    comments: []
-};
 const Dashboard = () => {
-    const [tasks, setTasks] = useState<Post[]>([]);
+    const [posts, setPosts] = useState<dashboardPostContent.Post[]>([]);
+    const [message, setMessage] = useState<string >("");
 
-    const getTasks = async () => {
+    const getPosts = async () => {
         try {
             const result = await (
                 await fetch(`${BASE_URL_POSTS}`)
             ).json();
 
             if(result) {
-                setTasks(result.data)
+                setPosts(result.data)
+                setMessage('')
             }
         } catch (error) {
             console.log(error);
         }
+    };
 
+    const updatePost = async (post) => {
+        try {
+            const result = await (
+                await  fetch(`${BASE_URL_POSTS}/${post._id}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(post),
+                })
+            ).json();
+
+            if(result) {
+                getPosts();
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const deletePost = async (id: string) => {
+        try {
+            const result = await (
+                await  fetch(`${BASE_URL_POSTS}/${id}`, {method: "DELETE",})
+            ).json();
+
+            if(result) {
+                setMessage(result.message)
+                const timer = setTimeout(() => {
+                    getPosts();
+                }, 1000);
+                return () => clearTimeout(timer);
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     useEffect(() => {
-        getTasks();
+        getPosts();
     }, []);
 
     return (
         <div>
             <h1 className={style.title}>List of Posts</h1>
-            {tasks.length > 0 && tasks.map((item: Post) => (
+            <span>{message}</span>
+            {posts.length > 0 && posts.map((item: dashboardPostContent.Post) => (
                 <div className={style.post} key={item._id}>
-                    <h2><Link to={item._id.toString()}>{item.title}</Link></h2>
-                    {item.body}
+                    <DashboardPost
+                        updatePost={updatePost}
+                        deletePost={deletePost}
+                        key={item._id}
+                        item={item} />
                 </div>
             ))}
+            <DashboardNewPostForm getPosts={getPosts} />
         </div>
     );
 };

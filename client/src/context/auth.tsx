@@ -19,6 +19,7 @@ const AuthContent = createContext({
     user: null,
     login: (userData) => {},
     logout: () => {},
+    update: (userData) => {},
 })
 
 function authReducer(state, action) {
@@ -33,6 +34,11 @@ function authReducer(state, action) {
                 ...state,
                 user: null,
             }
+        case "UPDATE":
+            return {
+                ...state,
+                user: action.payload,
+            };
         default:
             return state;
     }
@@ -40,6 +46,14 @@ function authReducer(state, action) {
 
 function AuthProvider(props) {
     const [state, dispatch] = useReducer(authReducer, initialState);
+
+    function update(userData: any) {
+        localStorage.setItem("jwtDecode", userData.token);
+        dispatch({
+            type: "UPDATE",
+            payload: userData.result,
+        });
+    }
 
     function login(userData: any) {
         localStorage.setItem("jwtDecode", userData.token);
@@ -55,7 +69,7 @@ function AuthProvider(props) {
     }
 
     return(
-        <AuthContent.Provider value={{user: state.user, login, logout}} {...props} />
+        <AuthContent.Provider value={{user: state.user, login, logout, update}} {...props} />
     )
 }
 

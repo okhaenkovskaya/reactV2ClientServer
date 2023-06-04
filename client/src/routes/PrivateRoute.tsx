@@ -1,5 +1,6 @@
 import {useContext} from 'react';
 import {Navigate, Outlet} from "react-router-dom";
+
 import {AuthContent} from "../context/auth.js";
 
 const PrivateRoute = ({redirectPath}: any) => {
