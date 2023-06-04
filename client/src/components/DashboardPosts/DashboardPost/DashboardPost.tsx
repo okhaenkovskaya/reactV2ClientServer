@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import {Link} from "react-router-dom";
+import DashboardEditPostForm from "../DashboardEditPostForm/DashboardEditPostForm.tsx";
 
 
 type Props = {
@@ -25,14 +26,9 @@ type PropsPost = {
 const DashboardPost = ({
     item,
     deletePost,
-    setPosts,
-    posts,
-    setEditPostData,
-    setShowEditPopup,
-    checkedPosts,
-    setCheckedPosts,
+    updatePost
 }) => {
-    const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
+    const [showEditForm, setShowEditForm] = useState<boolean>(false);
     const postRef = useRef<HTMLInputElement | null>(null);
 
     const showDeletedPost = (ref :any) => {
@@ -41,30 +37,11 @@ const DashboardPost = ({
         }
     }
 
-    const editPost = (item: PropsPost) => {
-        const editedPost = {
-            id: item.id,
-            title: item.title,
-            author: item.author,
-            status: item.status,
-            data: item.data,
-            body: item.body,
-        };
-
-        setEditPostData(editedPost);
-        setShowEditPopup(true);
-        setIsPopupOpen(false);
-    };
-
     return (
         <div ref={postRef}>
 
             <h2><Link to={item._id.toString()}>{item.title}</Link></h2>
-            <div>{item.title}</div>
-            <div>
-                <span className={item.status.toLowerCase()}>{item.status}</span>
-            </div>
-            <div>{item.data}</div>
+
             <div>
                 {item.author}
                     <button
@@ -78,11 +55,16 @@ const DashboardPost = ({
                     </button>
                     <button
                         type="button"
-                        onClick={() => editPost(item)}
+                        onClick={() => setShowEditForm(!showEditForm)}
                     >
                         Edit
                     </button>
             </div>
+
+            {showEditForm && <DashboardEditPostForm
+              setShowEditForm={setShowEditForm}
+              updatePost={updatePost}
+              item={item} />}
         </div>
     );
 };

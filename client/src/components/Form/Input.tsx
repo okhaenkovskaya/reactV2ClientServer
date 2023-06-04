@@ -5,7 +5,7 @@ type Props = {
   name: string;
   pattern?: string | null;
   placeholder?: string;
-  value?: string;
+  value?: string | any;
   isRequired?: boolean;
   changeFunction: any;
 } & typeof defaultProps;

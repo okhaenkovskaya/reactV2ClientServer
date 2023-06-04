@@ -38,14 +38,21 @@ const DashboardPost = () => {
         getTask();
     }, []);
 
+    console.log(task, 'task')
 
     return (
         <div>
             <h1 className={style.title}>{task.title}</h1>
-            <h2 className={style.status}>{task.status}</h2>
+            <img src={task.thumbnail} alt={task.title} />
             {task.tag && (
                 <ul className={style.tags}>
                     {task.tag.map(tag => <li key={tag}>{tag}</li>)}
+                </ul>
+            )}
+
+            {task.categories && (
+                <ul className={style.tags}>
+                    {task.categories.map(category => <li key={category}>{category}</li>)}
                 </ul>
             )}
             {task.body}

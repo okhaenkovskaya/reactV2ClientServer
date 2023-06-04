@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import {BASE_URL_POSTS} from "../../data/constans.ts"
 import style from "./Dashboard.module.scss"
 import DashboardPost from "../../components/DashboardPosts/DashboardPost";
+import DashboardNewPostForm from "../../components/DashboardPosts/DashboardNewPostForm/DashboardNewPostForm.tsx";
 
 const Dashboard = () => {
     const [posts, setPosts] = useState<dashboardPostContent.Post[]>([]);
@@ -17,6 +18,26 @@ const Dashboard = () => {
             if(result) {
                 setPosts(result.data)
                 setMessage('')
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const updatePost = async (post) => {
+        try {
+            const result = await (
+                await  fetch(`${BASE_URL_POSTS}/${post._id}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(post),
+                })
+            ).json();
+
+            if(result) {
+                getPosts();
             }
         } catch (error) {
             console.log(error);
@@ -52,11 +73,13 @@ const Dashboard = () => {
             {posts.length > 0 && posts.map((item: dashboardPostContent.Post) => (
                 <div className={style.post} key={item._id}>
                     <DashboardPost
+                        updatePost={updatePost}
                         deletePost={deletePost}
                         key={item._id}
                         item={item} />
                 </div>
             ))}
+            <DashboardNewPostForm getPosts={getPosts} />
         </div>
     );
 };
