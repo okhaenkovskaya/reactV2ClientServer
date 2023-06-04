@@ -4,39 +4,55 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "../src/assets/styles/index.css";
 import {AuthProvider} from "./context/auth";
-import PublicLayout from "./layout/PublicLayout";
-import PrivateLayout from "./layout/PrivateLayout";
+import {PublicLayout, PrivateLayout} from "./layout";
+import {AuthRoute, PrivateRoute} from "./routes";
+import {HomePage, ErrorPage, AboutPage, ContactPage, BlogPage, PostPage, Login, Register, Dashboard, DashboardPost, Profile} from "./pages";
 
-import HomePage from "./pages/Home";
-import ErrorPage from "./pages/ErrorPage";
-import AboutPage from "./pages/About";
-import ContactPage from "./pages/Contact";
-import BlogPage from "./pages/Blog";
-import PostPage from "./pages/Post";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import Profile from "./pages/Profile";
 
 const router = createBrowserRouter([
   {
-    path: "/account",
-    element: <PrivateLayout />,
-    errorElement: <ErrorPage />,
+    element: <AuthRoute redirectPath={"/"} />,
     children: [
       {
-        path: "/account/profile",
-        element: <Profile />,
+        path: "",
+        element: <PublicLayout />,
+        errorElement: <ErrorPage />,
+        children: [
+          {
+            path: "/login",
+            element: <Login />,
+          },
+          {
+            path: "/register",
+            element: <Register />,
+          },
+        ],
       },
+    ]
+  },
+  {
+    element: <PrivateRoute redirectPath={"/login"} />,
+    children: [
       {
-        path: "/account/dashboard",
-        element: <Dashboard />,
+        path: "/account",
+        element: <PrivateLayout />,
+        errorElement: <ErrorPage />,
+        children: [
+          {
+            path: "/account/profile",
+            element: <Profile />,
+          },
+          {
+            path: "/account/dashboard",
+            element: <Dashboard />,
+          },
+          {
+            path: "/account/dashboard/:id",
+            element: <DashboardPost />,
+          },
+        ],
       },
-      {
-        path: "*",
-        element: <ErrorPage />,
-      },
-    ],
+    ]
   },
   {
     path: "",
@@ -64,19 +80,12 @@ const router = createBrowserRouter([
         element: <PostPage />,
       },
       {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/register",
-        element: <Register />,
-      },
-      {
         path: "*",
         element: <ErrorPage />,
       },
     ],
   },
+
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
