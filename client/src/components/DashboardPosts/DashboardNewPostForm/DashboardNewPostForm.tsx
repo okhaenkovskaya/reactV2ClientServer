@@ -1,8 +1,10 @@
 import {useState} from "react";
 import axios from "axios";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 import {BASE_URL_POSTS} from "../../../data/constans.ts";
-import {FormButton, Form, Input, Textarea} from "../../Form";
+import {FormButton, Form, Input} from "../../Form";
 
 type PropsNewPost = {
     title: string;
@@ -12,7 +14,12 @@ type PropsNewPost = {
     categories: string;
     thumbnail: string | null;
 };
-const DashboardNewPostForm = ({getPosts}) => {
+
+interface Props {
+    getPosts: () => void;
+}
+
+const DashboardNewPostForm = ({getPosts}: Props) => {
     const [hiddenForm, setHiddenForm] = useState<boolean>(false);
     const [newPost, setNewPost] = useState<PropsNewPost>({
         title: "",
@@ -81,6 +88,13 @@ const DashboardNewPostForm = ({getPosts}) => {
         }));
     };
 
+    const handleChangeQuill = (value: string) => {
+        setNewPost((prevState) =>({
+            ...prevState,
+            body: value
+        }));
+    }
+
     return (
         <div>
             {hiddenForm ? (
@@ -112,12 +126,10 @@ const DashboardNewPostForm = ({getPosts}) => {
                         type="file"
                         isRequired
                     />
-                    <Textarea
-                        changeFunction={handleChange}
-                        name="body"
-                        placeholder="body"
-                        value={newPost.body}
-                    />
+
+                    <ReactQuill theme="snow"
+                                value={newPost.body}
+                                onChange={(value: string) => handleChangeQuill(value)} />
 
                     <FormButton>Submit</FormButton>
                 </Form>

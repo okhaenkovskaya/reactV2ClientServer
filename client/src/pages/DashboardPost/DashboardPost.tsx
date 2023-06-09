@@ -38,24 +38,30 @@ const DashboardPost = () => {
         getTask();
     }, []);
 
-    console.log(task, 'task')
+    console.log(task.tag, 'task.tag')
 
     return (
         <div>
             <h1 className={style.title}>{task.title}</h1>
-            <img src={task.thumbnail} alt={task.title} />
-            {task.tag && (
-                <ul className={style.tags}>
-                    {task.tag.map(tag => <li key={tag}>{tag}</li>)}
-                </ul>
+            <img className={style.image} src={task.thumbnail} alt={task.title} />
+            {task.tag.length > 0 && (
+                <>
+                    <h3>Tags</h3>
+                    <ul className={style.tags}>
+                        {task.tag.map(tag => <li key={tag}>{tag}</li>)}
+                    </ul>
+                </>
             )}
 
-            {task.categories && (
-                <ul className={style.tags}>
-                    {task.categories.map(category => <li key={category}>{category}</li>)}
-                </ul>
+            {task.categories.length > 0 && (
+                <>
+                    <h3>Categories</h3>
+                    <ul className={style.tags}>
+                        {task.categories.map(category => <li key={category}>{category}</li>)}
+                    </ul>
+                </>
             )}
-            {task.body}
+            <div className="" dangerouslySetInnerHTML={{ __html: task.body }} ></div>
             <h3 className={style.likes}>Likes: {task.likes}</h3>
         </div>
     );

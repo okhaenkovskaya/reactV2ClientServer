@@ -1,6 +1,8 @@
 import {useState} from "react";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
-import {FormButton, Form, Input, Textarea} from "../../Form";
+import {FormButton, Form, Input} from "../../Form";
 
 type PropsNewPost = {
     _id: any;
@@ -46,6 +48,12 @@ const DashboardEditPostForm = ({item, setShowEditForm, updatePost}) => {
         }));
     };
 
+    const handleChangeQuill = (value: string) => {
+        setNewPost((prevState) =>({
+            ...prevState,
+            body: value
+        }));
+    }
 
     return (
         <Form submitFunction={handleSubmit}>
@@ -68,13 +76,9 @@ const DashboardEditPostForm = ({item, setShowEditForm, updatePost}) => {
                 placeholder="tag"
                 value={newPost.tag}
             />
-
-            <Textarea
-                changeFunction={handleChange}
-                name="body"
-                placeholder="body"
-                value={newPost.body}
-            />
+            <ReactQuill theme="snow"
+                        value={newPost.body}
+                        onChange={(value: string) => handleChangeQuill(value)} />
 
             <FormButton>Submit</FormButton>
         </Form>
