@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { useState, useMemo, useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 
 import { ThemeContext } from "../context/Contexts.ts";
 import Header from "../components/Header";
@@ -12,6 +12,26 @@ interface PublicLayoutProps {
 
 function PublicLayout({ children }: PublicLayoutProps) {
   const [theme, setTheme] = useState<string>("dark");
+
+  const titles= useMemo(() =>({
+    "/": "Home",
+    "/about": "About",
+    "/contact": "Contact",
+    "/blog": "Blog",
+    "/blog/": "Post",
+    "/login": "Login",
+    "/register": "Register"
+  }), []);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    titles[location.pathname] ? (
+        document.title = titles[location.pathname]
+    ) : (
+        document.title = "My Title"
+    )
+  }, [location, titles])
 
   return (
     <ThemeContext.Provider value={theme}>

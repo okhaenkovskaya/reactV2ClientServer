@@ -2,7 +2,12 @@ import {useReducer, createContext} from "react";
 import jwtDecode from "jwt-decode";
 
 const initialState = {
-    user: null,
+    user: {
+        "iat": 0,
+        "exp": 0,
+        "id": "0",
+        "email": "",
+    },
 }
 
 if(localStorage.getItem("jwtDecode")) {
@@ -16,7 +21,12 @@ if(localStorage.getItem("jwtDecode")) {
 }
 
 const AuthContent = createContext({
-    user: null,
+    user: {
+        "iat": 0,
+        "exp": 0,
+        "id": "0",
+        "email": "",
+    },
     login: (userData) => {},
     logout: () => {},
     update: (userData) => {},
