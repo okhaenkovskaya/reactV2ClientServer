@@ -1,11 +1,19 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
-import {BASE_URL_POSTS} from "../../data/constans.ts"
-import style from "./DashboardPost.module.scss"
+import {BASE_URL_POSTS} from "../../data/constans.ts";
+import style from "./DashboardPost.module.scss";
+import Button from "../../components/Button";
+import PostComment from "../../components/PostComments";
+
+type QuizParams = {
+    id: string;
+};
 
 const DashboardPost = () => {
-    const { id } = useParams<string>();
+    const { id } = useParams<QuizParams>();
+    const [view, setView] = useState<number>(0);
     const [task, setTask] = useState<dashboardPostContent.Post>({
         _id: "",
         title: "",
@@ -15,7 +23,7 @@ const DashboardPost = () => {
         categories: [],
         thumbnail: "",
         likes: 0,
-        views: 0,
+        views: view,
         createdAt: "",
         comments: [],
     });
@@ -34,29 +42,66 @@ const DashboardPost = () => {
         }
     };
 
+    const fetchView = () => {
+        axios
+            .patch(`${BASE_URL_POSTS}/${id}/viewcount`)
+            .then((res) => {
+                setView(res.data.views)
+            })
+            .catch((error) => console.log(error));
+    };
+
+    const addLike = () => {
+        axios
+            .put(`${BASE_URL_POSTS}/${id}/like`)
+            .then((res) => setTask(res.data))
+            .catch((error) => console.log(error));
+    };
+
+    const removeLike = () => {
+        axios
+            .delete(`${BASE_URL_POSTS}/${id}/like`)
+            .then((res) => setTask(res.data))
+            .catch((error) => console.log(error));
+    };
+
     useEffect(() => {
         getTask();
+        fetchView();
     }, []);
 
-    console.log(task, 'task')
 
     return (
         <div>
             <h1 className={style.title}>{task.title}</h1>
-            <img src={task.thumbnail} alt={task.title} />
-            {task.tag && (
-                <ul className={style.tags}>
-                    {task.tag.map(tag => <li key={tag}>{tag}</li>)}
-                </ul>
+            <img className={style.image} src={task.thumbnail} alt={task.title} />
+            {task.tag.length > 0 && (
+                <>
+                    <h3>Tags</h3>
+                    <ul className={style.tags}>
+                        {task.tag.map(tag => <li key={tag}>{tag}</li>)}
+                    </ul>
+                </>
             )}
 
-            {task.categories && (
-                <ul className={style.tags}>
-                    {task.categories.map(category => <li key={category}>{category}</li>)}
-                </ul>
+            {task.categories.length > 0 && (
+                <>
+                    <h3>Categories</h3>
+                    <ul className={style.tags}>
+                        {task.categories.map(category => <li key={category}>{category}</li>)}
+                    </ul>
+                </>
             )}
-            {task.body}
-            <h3 className={style.likes}>Likes: {task.likes}</h3>
+            <div dangerouslySetInnerHTML={{ __html: task.body }} ></div>
+            <h3 className={style.likes}>Likes: {task.likes} ---- Views: {task.views}</h3>
+
+            <h3>
+                <strong>{task.likes}</strong>
+                <Button onClick={addLike}>Add like</Button>
+                <Button onClick={removeLike}>Delete like</Button>
+            </h3>
+
+            <PostComment postId={id as string} />
         </div>
     );
 };

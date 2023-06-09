@@ -1,22 +1,31 @@
 import {useState} from "react";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
-import {FormButton, Form, Input, Textarea} from "../../Form";
+import {FormButton, Form, Input} from "../../Form";
 
 type PropsNewPost = {
     _id: any;
     title: string;
     body: string;
-    tag: string | [];
-    categories: string | [];
+    tag: [];
+    categories: [];
     thumbnail: string
 };
-const DashboardEditPostForm = ({item, setShowEditForm, updatePost}) => {
+
+interface Props {
+    item: PropsNewPost;
+    setShowEditForm: any;
+    updatePost: any;
+}
+
+const DashboardEditPostForm = ({item, setShowEditForm, updatePost}: Props) => {
     const [newPost, setNewPost] = useState<PropsNewPost>({
         _id: item._id,
         title: item.title,
         body: item.body,
-        tag: item.tag.join(','),
-        categories: item.categories.join(','),
+        tag: item.tag,
+        categories: item.categories,
         thumbnail: item.thumbnail,
     });
 
@@ -46,6 +55,12 @@ const DashboardEditPostForm = ({item, setShowEditForm, updatePost}) => {
         }));
     };
 
+    const handleChangeQuill = (value: string) => {
+        setNewPost((prevState) =>({
+            ...prevState,
+            body: value
+        }));
+    }
 
     return (
         <Form submitFunction={handleSubmit}>
@@ -68,15 +83,11 @@ const DashboardEditPostForm = ({item, setShowEditForm, updatePost}) => {
                 placeholder="tag"
                 value={newPost.tag}
             />
+            <ReactQuill theme="snow"
+                        value={newPost.body}
+                        onChange={(value: string) => handleChangeQuill(value)} />
 
-            <Textarea
-                changeFunction={handleChange}
-                name="body"
-                placeholder="body"
-                value={newPost.body}
-            />
-
-            <FormButton>Submit</FormButton>
+            <FormButton buttonText="Submit" />
         </Form>
     );
 };

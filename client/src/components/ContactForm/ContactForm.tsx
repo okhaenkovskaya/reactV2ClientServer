@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 import { Input, Textarea, Form, FormButton } from "../Form";
 
@@ -10,7 +10,6 @@ type PropsData = {
 };
 
 const ContactForm = () => {
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   const [data, setData] = useState<PropsData>({
     firstName: "",
@@ -63,7 +62,7 @@ const ContactForm = () => {
         value={data.message}
       />
 
-      <FormButton innerRef={buttonRef}>Send</FormButton>
+      <FormButton buttonText="Send" />
     </Form>
   );
 };

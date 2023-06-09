@@ -1,33 +1,21 @@
 import { useState, useRef } from "react";
 import {Link} from "react-router-dom";
-import DashboardEditPostForm from "../DashboardEditPostForm/DashboardEditPostForm.tsx";
 
+import style from "./DashboardPost.module.scss";
+import DashboardEditPostForm from "../DashboardEditPostForm/DashboardEditPostForm.tsx";
+import Button from "../../Button";
 
 type Props = {
-    item: PropsPost;
-    setPosts: any;
-    posts: [];
-    setEditPostData: any;
-    setShowEditPopup: any;
-    checkedPosts: any
-    setCheckedPosts:any;
-    isCheck: boolean;
-};
-
-type PropsPost = {
-    id: string | number,
-    title: string,
-    author: string,
-    status: string,
-    data: any,
-    body: string,
+    item: dashboardPostContent.Post;
+    deletePost: (id: string) => void;
+    updatePost: (id: dashboardPostContent.Post) => void;
 };
 
 const DashboardPost = ({
     item,
     deletePost,
     updatePost
-}) => {
+}: Props) => {
     const [showEditForm, setShowEditForm] = useState<boolean>(false);
     const postRef = useRef<HTMLInputElement | null>(null);
 
@@ -40,25 +28,21 @@ const DashboardPost = ({
     return (
         <div ref={postRef}>
 
-            <h2><Link to={item._id.toString()}>{item.title}</Link></h2>
+            <h2 className={style.title}><Link to={item._id.toString()}>{item.title}</Link></h2>
 
             <div>
-                {item.author}
-                    <button
-                        type="button"
-                        onClick={() => (
-                            deletePost(item._id),
-                            showDeletedPost(postRef)
-                        )}
-                    >
-                        Delete
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => setShowEditForm(!showEditForm)}
-                    >
-                        Edit
-                    </button>
+                <Button onClick={() => (
+                    deletePost(item._id as string),
+                    showDeletedPost(postRef)
+                )}>
+                    Delete
+                </Button>
+
+                <Button
+                    onClick={() => setShowEditForm(!showEditForm)}
+                >
+                    Edit
+                </Button>
             </div>
 
             {showEditForm && <DashboardEditPostForm
