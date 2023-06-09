@@ -8,8 +8,8 @@ declare namespace dashboardPostContent {
         tag: [];
         categories: [];
         thumbnail: string;
-        likes: number | string;
-        views: number | string;
+        likes: number;
+        views: number;
         createdAt: string;
         comments: []
     };

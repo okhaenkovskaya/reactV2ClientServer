@@ -16,7 +16,8 @@ type PropsComments = {
     replies: [];
 };
 
-const PostComment = ({ postId }: { postId: number | string }) => {
+const PostComment = ({ postId }: { postId: string }) => {
+
     const {user}: userContent.Props = useContext(AuthContent);
     const [comments, setComments] = useState<PropsComments[]>([]);
     const [newComment, setNewComment] = useState<string>("");
@@ -85,13 +86,7 @@ const PostComment = ({ postId }: { postId: number | string }) => {
     };
 
     const ShowReplyForm = (e: any) => {
-
-
-
         const formReplyHolder = e.target.parentNode.parentNode.parentNode;
-
-        console.log(formReplyHolder, 'formReplyHolder')
-
         formReplyHolder.classList.toggle("hide-form");
     };
 
@@ -119,9 +114,9 @@ const PostComment = ({ postId }: { postId: number | string }) => {
                       handleReply={handleReply}
                       comment={comment}
                     />
-                    {comment.replies.map((innerComment) => (
+                    {comment.replies.map((innerComment: string, index: number) => (
                         <SecondComment
-                            key={innerComment.slice(0, 15)}
+                            key={index}
                             innerComment={innerComment}
                         />
                     ))}

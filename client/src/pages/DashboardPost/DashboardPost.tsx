@@ -7,9 +7,13 @@ import style from "./DashboardPost.module.scss";
 import Button from "../../components/Button";
 import PostComment from "../../components/PostComments";
 
+type QuizParams = {
+    id: string;
+};
+
 const DashboardPost = () => {
-    const { id } = useParams<string>();
-    const [view, setView] = useState<number | string>(0);
+    const { id } = useParams<QuizParams>();
+    const [view, setView] = useState<number>(0);
     const [task, setTask] = useState<dashboardPostContent.Post>({
         _id: "",
         title: "",
@@ -92,11 +96,12 @@ const DashboardPost = () => {
             <h3 className={style.likes}>Likes: {task.likes} ---- Views: {task.views}</h3>
 
             <h3>
-                <Button onClick={addLike}>Add likes: {task.likes}</Button>
-                <Button onClick={removeLike}>Delete likes: {task.likes}</Button>
+                <strong>{task.likes}</strong>
+                <Button onClick={addLike}>Add like</Button>
+                <Button onClick={removeLike}>Delete like</Button>
             </h3>
 
-            <PostComment postId={id} />
+            <PostComment postId={id as string} />
         </div>
     );
 };
