@@ -96,7 +96,6 @@ const PostComment = ({ postId }: { postId: string }) => {
                 <PostCommentForm
                     handleSubmit={handleSubmit}
                     setNewComment={setNewComment}
-                    newComment={newComment}
                 />
             ) : (
                 <h1>You must to LoG In</h1>

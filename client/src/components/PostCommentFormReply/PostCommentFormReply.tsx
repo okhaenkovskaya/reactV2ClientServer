@@ -23,15 +23,12 @@ const PostCommentFormReply = ({ handleReply, comment }: Props) => {
     return (
         <Form
             classes="reply-form"
-            submitFunction={(e: any) =>
-                handleReply(e, comment._id, newComment)
-            }
+            submitFunction={(e: Event) => handleReply(e, comment._id, newComment)}
         >
-
             <ReactQuill theme="snow"
                         value={newComment}
                         onChange={(value: string) => setNewComment(value)} />
-            <FormButton>Add Comment Reply</FormButton>
+            <FormButton buttonText="Add Comment Reply" />
         </Form>
     )
 };

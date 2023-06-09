@@ -10,10 +10,14 @@ interface PublicLayoutProps {
   children?: React.ReactNode | null;
 }
 
+interface pageTitles {
+  [key: string]: any;
+}
+
 function PublicLayout({ children }: PublicLayoutProps) {
   const [theme, setTheme] = useState<string>("dark");
 
-  const titles= useMemo(() =>({
+  const titles: pageTitles = useMemo(() =>({
     "/": "Home",
     "/about": "About",
     "/contact": "Contact",

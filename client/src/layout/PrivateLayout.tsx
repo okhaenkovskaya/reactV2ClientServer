@@ -10,9 +10,12 @@ interface PrivateLayoutProps {
   children?: React.ReactNode;
 }
 
+interface pageTitles {
+    [key: string]: any;
+}
 function PrivateLayout({ children }: PrivateLayoutProps) {
 
-    const titles= useMemo(() =>({
+    const titles: pageTitles= useMemo(() =>({
         "/account/profile": "Profile",
         "/account/dashboard": "Dashboard",
     }), []);
