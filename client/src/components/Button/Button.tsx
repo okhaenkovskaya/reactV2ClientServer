@@ -6,12 +6,13 @@ type Props = {
   children: JSX.Element | string;
   classes?: string;
   to?: string | undefined;
-  onClick?: () => void;
+  onClick?: (e?: any) => void;
   type?: "button" | "submit" | "reset" | undefined;
 } & typeof defaultProps;
 
 const defaultProps = {
   classes: style.button,
+  type: "button"
 };
 
 const Button = ({ children, classes, to, onClick, type }: Props) => {
