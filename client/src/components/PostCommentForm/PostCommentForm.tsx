@@ -5,7 +5,7 @@ import { Form, FormButton } from "../Form";
 
 type Props = {
     handleSubmit: (e: any) => void;
-    setNewComment: (e: any) => void;
+    setNewComment: (e: string) => void;
 };
 
 const PostCommentForm = ({handleSubmit, setNewComment}: Props) => {
