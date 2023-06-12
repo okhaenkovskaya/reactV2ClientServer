@@ -2,7 +2,7 @@ import {useContext, useState} from "react";
 
 import {BASE_URL_USER} from "../../data/constans.ts"
 import {AuthContent} from "../../context/auth.tsx";
-import {FormButton} from "../../components/Form";
+import Button from "../../components/Button";
 import ProfileForm from "../../components/ProfileForm";
 
 type PropsUser = {
@@ -39,19 +39,17 @@ const Profile = () => {
         <div>
             <span>{user.email}</span>
 
-            <FormButton
-                type="button"
-                clickFunction={() => deleteUser(updatedUser.id)}
+            <Button
+                onClick={() => deleteUser(updatedUser.id)}
             >
                 DELETE MY PROFILE
-            </FormButton>
+            </Button>
 
-            <FormButton
-                type="button"
-                clickFunction={() => setIsOpenForm(!isOpenForm)}
+            <Button
+                onClick={() => setIsOpenForm(!isOpenForm)}
             >
                 {isOpenForm ? "Close" : "Edit"}
-            </FormButton>
+            </Button>
 
             {isOpenForm ? (
                 <ProfileForm

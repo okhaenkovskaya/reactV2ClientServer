@@ -1,8 +1,10 @@
 declare namespace userContent {
 
-    type Props = {
-        user: null | PropsUser;
+    interface Props {
+        user: PropsUser;
         logout?: any;
+        login?: any;
+        update?: any;
     }
 
     type PropsUser = {

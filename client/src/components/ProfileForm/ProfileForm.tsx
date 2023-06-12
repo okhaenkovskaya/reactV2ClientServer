@@ -5,7 +5,7 @@ import { BASE_URL_USER } from "../../data/constans.ts";
 import { AuthContent } from "../../context/auth.tsx";
 
 type Props = {
-    setUpdatedUser: (param: object) => void;
+    setUpdatedUser: (param: PropsUser) => void;
     setIsOpenForm: (param: boolean) => void;
     updatedUser: PropsUser
 };
@@ -16,7 +16,7 @@ type PropsUser = {
 };
 
 const ProfileForm = ({ setUpdatedUser, updatedUser, setIsOpenForm }: Props) => {
-    const { user, update } = useContext(AuthContent);
+    const { user, update }: userContent.Props = useContext(AuthContent);
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
@@ -56,7 +56,7 @@ const ProfileForm = ({ setUpdatedUser, updatedUser, setIsOpenForm }: Props) => {
                 value={updatedUser.email}
                 changeFunction={(e: any) => handleChange(e)}
             />
-            <FormButton type="submit">Update my Info</FormButton>
+            <FormButton buttonText="Update my Info" />
         </Form>
     );
 };

@@ -3,21 +3,12 @@ import {Link} from "react-router-dom";
 
 import style from "./DashboardPost.module.scss";
 import DashboardEditPostForm from "../DashboardEditPostForm/DashboardEditPostForm.tsx";
-
+import Button from "../../Button";
 
 type Props = {
-    item: PropsPost;
+    item: dashboardPostContent.Post;
     deletePost: (id: string) => void;
-    updatePost: (id: string) => void;
-};
-
-type PropsPost = {
-    id: string | number,
-    title: string,
-    author: string,
-    status: string,
-    data: any,
-    body: string,
+    updatePost: (id: dashboardPostContent.Post) => void;
 };
 
 const DashboardPost = ({
@@ -40,24 +31,18 @@ const DashboardPost = ({
             <h2 className={style.title}><Link to={item._id.toString()}>{item.title}</Link></h2>
 
             <div>
-                {item.author}
-                    <button
-                        className={style.button}
-                        type="button"
-                        onClick={() => (
-                            deletePost(item._id),
-                            showDeletedPost(postRef)
-                        )}
-                    >
-                        Delete
-                    </button>
-                    <button
-                        className={style.button}
-                        type="button"
-                        onClick={() => setShowEditForm(!showEditForm)}
-                    >
-                        Edit
-                    </button>
+                <Button onClick={() => (
+                    deletePost(item._id as string),
+                    showDeletedPost(postRef)
+                )}>
+                    Delete
+                </Button>
+
+                <Button
+                    onClick={() => setShowEditForm(!showEditForm)}
+                >
+                    Edit
+                </Button>
             </div>
 
             {showEditForm && <DashboardEditPostForm

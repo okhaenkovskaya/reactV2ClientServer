@@ -24,7 +24,7 @@ const Dashboard = () => {
         }
     };
 
-    const updatePost = async (post) => {
+    const updatePost = async (post: dashboardPostContent.Post) => {
         try {
             const result = await (
                 await  fetch(`${BASE_URL_POSTS}/${post._id}`, {

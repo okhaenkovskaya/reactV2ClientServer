@@ -36,7 +36,7 @@ const DashboardNewPostForm = ({getPosts}: Props) => {
         try {
             const formData = new FormData();
 
-            Object.entries(newPost).forEach(([key, value]) => {
+            Object.entries(newPost).forEach(([key, value]: [key:string, value: any]) => {
                 if(Array.isArray(value)) {
                     value.forEach((item) =>{
                         formData.append(key, item);
@@ -46,12 +46,12 @@ const DashboardNewPostForm = ({getPosts}: Props) => {
                 }
             })
 
-            const res = await axios.post(BASE_URL_POSTS, formData, {
+            const res: any = await axios.post(BASE_URL_POSTS, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
-
+            console.log(res, 'res')
             setHiddenForm(!hiddenForm);
             getPosts();
 

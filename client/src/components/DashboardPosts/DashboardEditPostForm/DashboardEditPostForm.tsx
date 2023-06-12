@@ -8,17 +8,24 @@ type PropsNewPost = {
     _id: any;
     title: string;
     body: string;
-    tag: string | [];
-    categories: string | [];
+    tag: [];
+    categories: [];
     thumbnail: string
 };
-const DashboardEditPostForm = ({item, setShowEditForm, updatePost}) => {
+
+interface Props {
+    item: PropsNewPost;
+    setShowEditForm: any;
+    updatePost: any;
+}
+
+const DashboardEditPostForm = ({item, setShowEditForm, updatePost}: Props) => {
     const [newPost, setNewPost] = useState<PropsNewPost>({
         _id: item._id,
         title: item.title,
         body: item.body,
-        tag: item.tag.join(','),
-        categories: item.categories.join(','),
+        tag: item.tag,
+        categories: item.categories,
         thumbnail: item.thumbnail,
     });
 
@@ -80,7 +87,7 @@ const DashboardEditPostForm = ({item, setShowEditForm, updatePost}) => {
                         value={newPost.body}
                         onChange={(value: string) => handleChangeQuill(value)} />
 
-            <FormButton>Submit</FormButton>
+            <FormButton buttonText="Submit" />
         </Form>
     );
 };

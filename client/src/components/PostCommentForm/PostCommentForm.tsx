@@ -6,23 +6,20 @@ import { Form, FormButton } from "../Form";
 type Props = {
     handleSubmit: (e: any) => void;
     setNewComment: (e: any) => void;
-    newComment: any;
 };
 
-const PostCommentForm = ({
-                             handleSubmit,
-                             setNewComment,
-                             newComment,
-                         }: Props) => (
-    <Form submitFunction={handleSubmit}>
-        <h2>Add Comment</h2>
+const PostCommentForm = ({handleSubmit, setNewComment}: Props) => {
 
-        <ReactQuill theme="snow"
-                    value={newComment}
-                    onChange={(value: string) => setNewComment(value)} />
+    return (
+        <Form submitFunction={handleSubmit}>
+            <h2>Add Comment</h2>
+            <ReactQuill theme="snow"
+                        value=""
+                        onChange={(value: string) => setNewComment(value)} />
 
-        <FormButton>Add Comment</FormButton>
-    </Form>
-);
+            <FormButton buttonText="Add Comment" />
+        </Form>
+    )
+};
 
 export default PostCommentForm;

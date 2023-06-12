@@ -1,5 +1,5 @@
-import {useState} from "react";
-import { Outlet } from "react-router-dom";
+import {useEffect, useMemo, useState} from "react";
+import {Outlet, useLocation} from "react-router-dom";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -10,7 +10,26 @@ interface PrivateLayoutProps {
   children?: React.ReactNode;
 }
 
+interface pageTitles {
+    [key: string]: any;
+}
 function PrivateLayout({ children }: PrivateLayoutProps) {
+
+    const titles: pageTitles= useMemo(() =>({
+        "/account/profile": "Profile",
+        "/account/dashboard": "Dashboard",
+    }), []);
+
+    const location = useLocation();
+
+    useEffect(() => {
+        titles[location.pathname] ? (
+                document.title = titles[location.pathname]
+            ) : (
+            document.title = "My Title"
+            )
+    }, [location, titles])
+
   const [theme, setTheme] = useState<string>("dark");
 
   return (
